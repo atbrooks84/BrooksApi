@@ -41,5 +41,8 @@ namespace BrooksApi.Controllers
             var data = await db.GetHouseholdAccounts(houseId);
             return Json(data, serializerSettings);
         }
+
+        //Add account
+        //Edit account
     }
 }

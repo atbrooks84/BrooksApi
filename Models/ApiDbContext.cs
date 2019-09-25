@@ -90,8 +90,45 @@ namespace BrooksApi.Models
 
         public async Task<Transaction> GetTransactionDetails(int transactionId)
         {
-            return await Database.SqlQuery<Transaction>("GetTransactionDetails @transactionId",
+            return await Database.SqlQuery<Transaction>("GetTransactionDetails @tranHouse @description, @startingBalance, @currentBalancesactionId",
                 new SqlParameter("transactionId", transactionId)).FirstOrDefaultAsync();
         }
+
+        public async Task<int> AddTransaction(string transMemo, int transType, int transAmount, int transBudget, int transAccount, string transUser)
+        {
+            return await Database.ExecuteSqlCommandAsync("AddTransaction @transMemo, @transType, @transAmount, @transBudget, @transAccount, @transUser",
+               new SqlParameter("@transMemo", transMemo),
+               new SqlParameter("@transType", transType),
+               new SqlParameter("@transAmount", transAmount),
+               new SqlParameter("@transBudget", transBudget),
+               new SqlParameter("@transAccount", transAccount),
+               new SqlParameter("@transUser", transUser)
+                );
+        }
+
+        public async Task<int> AddAccount(string accountName, int accountBalance, int accountHouse, string accountOwner, int accountType, string accountStreet, string accountCity, string accountState)
+        {
+            return await Database.ExecuteSqlCommandAsync("AddAccount @accountName, @accountBalance, @accountHouse, @accountOwner, @accountType, @accountStreet, @accountCity, @accountState",
+                new SqlParameter("@accountName", accountName),
+                new SqlParameter("@accountBalance", accountBalance),
+                new SqlParameter("@accountHouse", accountHouse),
+                new SqlParameter("@accountOwner", accountOwner),
+                new SqlParameter("@accountType", accountType),
+                new SqlParameter("@accountStreet", accountStreet),
+                new SqlParameter("@accountCity", accountCity),
+                new SqlParameter("@accountState", accountState)
+                );
+        }
+
+        public async Task<int> AddBudget(string budgetName, int budgetTarget, int budgetActual, int budgetHousehold)
+        {
+            return await Database.ExecuteSqlCommandAsync("AddBudget @budgetName, @budgetTarget, @budgetActual, @budgetHousehold",
+                new SqlParameter("@budgetName", budgetName),
+                new SqlParameter("@budgetTarget", budgetTarget),
+                new SqlParameter("@budgetActual", budgetActual),
+                new SqlParameter("@budgetHousehold", budgetHousehold)
+                );
+        }       
+        
     }
 }

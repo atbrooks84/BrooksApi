@@ -42,5 +42,23 @@ namespace BrooksApi.Controllers
             return Json(data, serializerSettings);
         }
 
+        [Route("AddBudget")]
+        public async Task<int> AddBudget(string budgetName, int budgetTarget, int budgetActual, int budgetHousehold)
+        {
+            return await db.AddBudget(budgetName, budgetTarget, budgetActual, budgetHousehold);
+        }
+
+        [Route("AddAccount")]
+        public async Task<int> AddAccount(string accountName, int accountBalance, int accountHouse, string accountOwner, int accountType, string accountStreet, string accountCity, string accountState)
+        {
+            return await db.AddAccount(accountName, accountBalance, accountHouse, accountOwner, accountType, accountStreet, accountCity, accountState);
+        }
+
+        [Route("AddTransaction")]
+        public async Task<int> AddTransaction(string transMemo, int transType, int transAmount, int transBudget, int transAccount, string transUser)
+        {
+            return await db.AddTransaction(transMemo, transType, transAmount, transBudget, transAccount, transUser);
+        }
+            
     }
 }
